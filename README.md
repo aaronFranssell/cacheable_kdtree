@@ -1,4 +1,7 @@
-https://travis-ci.org/aaronFranssell/kdtree.svg?branch=master
+[![Build Status](https://travis-ci.org/aaronFranssell/kdtree.svg?branch=master)(https://travis-ci.org/aaronFranssell/kdtree)]
+[![Code Climate](https://codeclimate.com/github/aaronFranssell/kdtree/badges/gpa.svg)](https://codeclimate.com/github/aaronFranssell/kdtree)
+[![Test Coverage](https://codeclimate.com/github/aaronFranssell/kdtree/badges/coverage.svg)](https://codeclimate.com/github/aaronFranssell/kdtree/coverage)
+
 # Kd-tree
 
 My Ruby implementation of a [Kd-tree](https://en.wikipedia.org/wiki/K-d_tree). Kd-trees allow for fast nearest-neighbor searches. This implementation will also allow the Kd-tree to be cached using ```Rails.cache``` methods. For now, this only supports 2d latitude/longitude searches.
