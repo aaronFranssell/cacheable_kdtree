@@ -1,4 +1,7 @@
-Dir[File.dirname(__FILE__) + '/kdtree/*.rb'].each { |file| require file }
-
-module Kdtree
-end
+%w(
+  version
+  latitude_longitude_node
+  latitude_longitude_region
+  latitude_longitude_tree
+  util
+).each { |name| require "kdtree/#{name}" }

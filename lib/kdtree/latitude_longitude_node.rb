@@ -1,28 +1,10 @@
 class Kdtree::LatitudeLongitudeNode
-  attr_accessor :left, :right, :data, :latitude, :longitude, :depth, :region
+  attr_accessor :left, :right, :data, :latitude, :longitude, :region
 
   def initialize(node_data, node_lat, node_long)
     @data = node_data
     @latitude = node_lat
     @longitude = node_long
-  end
-
-  def compare_value
-    self.class.use_latitude?(depth) ? latitude : longitude
-  end
-
-  def branch(other_node)
-    use_right_child?(other_node) ? right : left
-  end
-
-  def assign_branch(other_node)
-    if use_right_child?(other_node)
-      @right = other_node
-    else
-      @left = other_node
-    end
-    other_node.depth = depth + 1
-    other_node
   end
 
   def to_s
@@ -47,11 +29,5 @@ class Kdtree::LatitudeLongitudeNode
 
   def self.use_latitude?(depth)
     depth.even?
-  end
-
-  private
-
-  def use_right_child?(other_node)
-    other_node.compare_value > compare_value
   end
 end
