@@ -2,9 +2,6 @@ language: ruby
 cache: bundler
 rvm:
 - 2.2.2
-branches:
-  only:
-  - master
 script:
 - bundle exec rubocop -Dc .rubocop.yml
 - bundle exec rake test
@@ -16,4 +13,3 @@ deploy:
   on:
     tags: true
     repo: aaronFranssell/kdtree
-    all_branches: true
