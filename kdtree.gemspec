@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'kdtree/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'kdtree'
+  spec.name          = 'cacheable_kdtree'
   spec.version       = Kdtree::VERSION
   spec.authors       = ['Aaron Franssell']
   spec.email         = ['aaron.franssell@gmail.com']
