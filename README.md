@@ -1,28 +1,34 @@
-# Kdtree
+# Kd-tree
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/kdtree`. To experiment with that code, run `bin/console` for an interactive prompt.
+My Ruby implementation of a [Kd-tree](https://en.wikipedia.org/wiki/K-d_tree). Kd-trees allow for fast nearest-neighbor searches. This implementation will also allow the Kd-tree to be cached using ```Rails.cache``` methods. For now, this only supports 2d latitude/longitude searches.
 
-TODO: Delete this and the text above, and describe your gem
+## Getting Started
 
-## Installation
-
-Add this line to your application's Gemfile:
+For starters:
 
 ```ruby
 gem 'kdtree'
 ```
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install kdtree
-
 ## Usage
 
-TODO: Write usage instructions here
+A Kd-tree is made up of multiple nodes. A single node contains the data associated with the latitude/longitude:
+
+```ruby
+Kdtree::LatitudeLongitudeNode.new(your_data_here, latitude_of_your_data, longitude_of_your_data)
+```
+
+Once you have an array of nodes, you can create a Kd-tree:
+```ruby
+nodes = [Kdtree::LatitudeLongitudeNode.new(...), Kdtree::LatitudeLongitudeNode.new(...)]
+my_tree = Kdtree::LatitudeLongitudeTree.new(nodes)
+```
+
+You can query your tree and return the closest nodes:
+```ruby
+# The 4th parameter may be :miles or :kilometers
+all_my_nodes = my_tree.closest(my_lat, my_long, distance, :kilometers)
+```
 
 ## Development
 
@@ -32,5 +38,12 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/kdtree.
+Bug reports and pull requests are welcome on GitHub at https://github.com/aaronFranssell/kdtree.
+
+Please make sure all tests pass and that [Rubocop](https://github.com/bbatsov/rubocop) is happy:
+```ruby
+rake test
+rubocop -Dac .rubocop.yml
+```
+
 

@@ -1,4 +1,18 @@
 language: ruby
+cache: bundler
 rvm:
-  - 2.1.5
-before_install: gem install bundler -v 1.10.6
+- 2.2.2
+branches:
+  only:
+  - master
+script:
+- bundle exec rubocop -Dc .rubocop.yml
+- bundle exec rake test
+deploy:
+  provider: rubygems
+  api_key:
+    secure: TfNKvb7Qzqch5zzbaXv3Qv0m4amPSMQI8rlucf5nW2YxdNBIxGAx9sFeD495V592bzgcnYoeew5OFPOSxVd5YeT+VVu43cJv5gvI+Eouro7r4AKTuJjLcMRvmZvhy5RZrPhph1QwbDHbEcGTpqKcbXka8aURKgsnZzdsf66/iezp30/+q3gkWvUz94b4bBkcHMELsnwvlUX5XukVPP8Zh73YYzUy1Dh6UZiV/Reio2fQb+giSd1FafyptI5LXgmnNhnuLGwOajFgbEYr4ZFg8SfvlQ1SKZzHvH3tsFNUrCcsklowcbks/G/Hb/lOjZpqQH9M4BFrVwYNDEGN8pkmB6mBO56nK6JW4qJwh38MpAhhrLScy8IJw+D9tajkGMyjezb2svqWvMWQ6bdyBeeEsVF51oBqIXD/tadIAVY41ngCvcFw+zzi9568W27CL/9idFHi7rSB1Q/RLNIF2/uT0lt4eOk8Gr8Zyh/YImb3ktXSu4JwWQEfj4m+xugFXL1F/XkkOi/cSNq1tBf2J2LUCe+DxCogGWz5LbiY/aU1sfM4TJmp6awPP6JBv+qujJvVCJblKX/HIhIkfW0o1q1e639JYMTq/6DlIJQk+D9hXzY4X/lrsLlH7zYRie+HCxgxSg1tKTiZkfmohY3GOLLy8W/LfaR/ma622MLWjIIyUVM=
+  gem: kdtree
+  on:
+    tags: true
+    repo: aaronFranssell/kdtree

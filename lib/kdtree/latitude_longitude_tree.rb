@@ -1,8 +1,7 @@
 class Kdtree::LatitudeLongitudeTree
-  attr_accessor :root, :length
+  attr_accessor :root
 
   def initialize(node_list)
-    @length = node_list.length
     @root = create_tree(node_list)
     find_regions(@root)
   end
@@ -18,37 +17,10 @@ class Kdtree::LatitudeLongitudeTree
 
   def nearest_nodes(bounding_box, node = @root, result = [])
     return result if node.nil?
-    if node.data.locator_address.zip.start_with?('59')
-      puts ''
-      puts 'BOUNDING_BOX'
-      puts bounding_box.inspect
-      puts 'NODE'
-      puts "#{node.latitude}, #{node.longitude}"
-      puts 'bounding_box.point_in_region?(node.latitude, node.longitude)'
-      puts bounding_box.point_in_region?(node.latitude, node.longitude)
-      log_children(node, bounding_box)
-    end
-    result << node if bounding_box.point_in_region?(node.latitude, node.longitude)
+    result << node.data if bounding_box.point_in_region?(node.latitude, node.longitude)
     nearest_nodes(bounding_box, node.left, result) if search_child?(node.left, bounding_box)
     nearest_nodes(bounding_box, node.right, result) if search_child?(node.right, bounding_box)
     result
-  end
-
-  def log_children(node, bounding_box)
-    return unless node && node.region
-    puts node.region.to_s
-    if node.left && node.left.region
-      puts 'LEFT CHILD'
-      puts node.left.to_s
-      puts 'SEARCH CHILD?'
-      puts search_child?(node.left, bounding_box)
-    end
-    if node.right && node.right.region
-      puts 'right CHILD'
-      puts node.right.to_s
-      puts 'SEARCH CHILD?'
-      puts search_child?(node.right, bounding_box)
-    end
   end
 
   def search_child?(child, bounding_box)
