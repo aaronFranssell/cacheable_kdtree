@@ -1,10 +1,11 @@
+https://travis-ci.org/aaronFranssell/kdtree.svg?branch=master
 # Kd-tree
 
 My Ruby implementation of a [Kd-tree](https://en.wikipedia.org/wiki/K-d_tree). Kd-trees allow for fast nearest-neighbor searches. This implementation will also allow the Kd-tree to be cached using ```Rails.cache``` methods. For now, this only supports 2d latitude/longitude searches.
 
 ## Getting Started
 
-For starters:
+Add the gem:
 
 ```ruby
 gem 'kdtree'
@@ -29,12 +30,6 @@ You can query your tree and return the closest nodes:
 # The 4th parameter may be :miles or :kilometers
 all_my_nodes = my_tree.closest(my_lat, my_long, distance, :kilometers)
 ```
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 
