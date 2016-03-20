@@ -11,7 +11,7 @@ My Ruby implementation of a [Kd-tree](https://en.wikipedia.org/wiki/K-d_tree). K
 Add the gem:
 
 ```ruby
-gem 'cacheable_kdtree'
+gem 'cacheable_kdtree', require: 'kdtree'
 ```
 
 ## Usage
