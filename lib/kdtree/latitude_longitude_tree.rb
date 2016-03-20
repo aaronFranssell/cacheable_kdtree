@@ -46,15 +46,12 @@ class Kdtree::LatitudeLongitudeTree
   end
 
   def create_tree(node_list, depth = 0)
-    return unless node_list.length > 0
-    if node_list.length == 1
-      return node_list.first
-    else
-      sorted_list = Kdtree::LatitudeLongitudeNode.sort_node_list(node_list, depth)
-      lower_half, midpoint, greater_half = Kdtree::LatitudeLongitudeNode.partition_node_list(sorted_list)
-      midpoint.left = create_tree(lower_half, depth + 1)
-      midpoint.right = create_tree(greater_half, depth + 1)
-      return midpoint
-    end
+    return if node_list.empty?
+    return node_list.first if node_list.length == 1
+    sorted_list = Kdtree::LatitudeLongitudeNode.sort_node_list(node_list, depth)
+    lower_half, midpoint, greater_half = Kdtree::LatitudeLongitudeNode.partition_node_list(sorted_list)
+    midpoint.left = create_tree(lower_half, depth + 1)
+    midpoint.right = create_tree(greater_half, depth + 1)
+    midpoint
   end
 end
