@@ -1,4 +1,4 @@
-class Kdtree::Util
+class CacheableKdtree::Util
   EARTH_MILES = 3959.0
   EARTH_KILOMETERS = 6371.0
 
@@ -20,7 +20,7 @@ class Kdtree::Util
     long_amount = radians_to_degrees(radius_distance / sphere_radius / Math.cos(degrees_to_radians(lat)))
     long1 = long - long_amount
     long2 = long + long_amount
-    Kdtree::LatitudeLongitudeRegion.new(lat1, long1, lat2, long2)
+    CacheableKdtree::LatitudeLongitudeRegion.new(lat1, long1, lat2, long2)
   end
 
   def self.degrees_to_radians(degrees)

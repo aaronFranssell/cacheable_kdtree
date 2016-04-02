@@ -4,4 +4,4 @@
   latitude_longitude_region
   latitude_longitude_tree
   util
-).each { |name| require "kdtree/#{name}" }
+).each { |name| require "cacheable_kdtree/#{name}" }

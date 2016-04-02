@@ -1,4 +1,4 @@
-class Kdtree::LatitudeLongitudeNode
+class CacheableKdtree::LatitudeLongitudeNode
   attr_accessor :left, :right, :data, :latitude, :longitude, :region
 
   def initialize(node_data, node_lat, node_long)
@@ -12,7 +12,7 @@ class Kdtree::LatitudeLongitudeNode
   end
 
   def self.create_or_merge_regions(n1, n2)
-    return Kdtree::LatitudeLongitudeRegion.new(n1.latitude, n1.longitude, n2.latitude, n2.longitude) if n1.region.nil? && n2.region.nil?
+    return CacheableKdtree::LatitudeLongitudeRegion.new(n1.latitude, n1.longitude, n2.latitude, n2.longitude) if n1.region.nil? && n2.region.nil?
     return n1.region.merge_point(n2.latitude, n2.longitude) if n1.region && n2.region.nil?
     return n2.region.merge_point(n1.latitude, n1.longitude) if n2.region && n1.region.nil?
     n1.region.merge_region(n2.region)
