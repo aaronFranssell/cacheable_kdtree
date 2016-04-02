@@ -1,13 +1,13 @@
 require 'test_helper'
 
 def create_test_points_odd_nodes
-  a = Kdtree::LatitudeLongitudeNode.new('A', 0, 0)
-  b = Kdtree::LatitudeLongitudeNode.new('B', -1, 7)
-  c = Kdtree::LatitudeLongitudeNode.new('C', 2, 5)
-  d = Kdtree::LatitudeLongitudeNode.new('D', -7, 12)
-  e = Kdtree::LatitudeLongitudeNode.new('E', -4, 5)
-  f = Kdtree::LatitudeLongitudeNode.new('F', 4, 10)
-  g = Kdtree::LatitudeLongitudeNode.new('G', 4, 3)
+  a = CacheableKdtree::LatitudeLongitudeNode.new('A', 0, 0)
+  b = CacheableKdtree::LatitudeLongitudeNode.new('B', -1, 7)
+  c = CacheableKdtree::LatitudeLongitudeNode.new('C', 2, 5)
+  d = CacheableKdtree::LatitudeLongitudeNode.new('D', -7, 12)
+  e = CacheableKdtree::LatitudeLongitudeNode.new('E', -4, 5)
+  f = CacheableKdtree::LatitudeLongitudeNode.new('F', 4, 10)
+  g = CacheableKdtree::LatitudeLongitudeNode.new('G', 4, 3)
   [a, b, c, d, e, f, g].shuffle
 end
 
@@ -29,12 +29,12 @@ def assert_odd_points(tree)
 end
 
 def create_test_points_even_nodes
-  a = Kdtree::LatitudeLongitudeNode.new('A', 7, 2)
-  b = Kdtree::LatitudeLongitudeNode.new('B', 5, 4)
-  c = Kdtree::LatitudeLongitudeNode.new('C', 2, 3)
-  d = Kdtree::LatitudeLongitudeNode.new('D', 4, 7)
-  e = Kdtree::LatitudeLongitudeNode.new('E', 9, 6)
-  f = Kdtree::LatitudeLongitudeNode.new('F', 8, 1)
+  a = CacheableKdtree::LatitudeLongitudeNode.new('A', 7, 2)
+  b = CacheableKdtree::LatitudeLongitudeNode.new('B', 5, 4)
+  c = CacheableKdtree::LatitudeLongitudeNode.new('C', 2, 3)
+  d = CacheableKdtree::LatitudeLongitudeNode.new('D', 4, 7)
+  e = CacheableKdtree::LatitudeLongitudeNode.new('E', 9, 6)
+  f = CacheableKdtree::LatitudeLongitudeNode.new('F', 8, 1)
   [a, b, c, d, e, f].shuffle
 end
 
@@ -64,17 +64,17 @@ def assert_node(node, data)
   assert_equal data, node.data
 end
 
-class Kdtree::LatitudeLongitudeTreeTest < Minitest::Test
+class CacheableKdtree::LatitudeLongitudeTreeTest < Minitest::Test
   describe 'initialize' do
     it 'should create the tree properly with even number of nodes' do
-      class_under_test = Kdtree::LatitudeLongitudeTree.new(create_test_points_even_nodes)
+      class_under_test = CacheableKdtree::LatitudeLongitudeTree.new(create_test_points_even_nodes)
 
       assert_even_points(class_under_test)
       assert_even_regions(class_under_test)
     end
 
     it 'should create the tree properly with an odd number of nodes' do
-      class_under_test = Kdtree::LatitudeLongitudeTree.new(create_test_points_odd_nodes)
+      class_under_test = CacheableKdtree::LatitudeLongitudeTree.new(create_test_points_odd_nodes)
 
       assert_odd_points(class_under_test)
       assert_odd_regions(class_under_test)
@@ -83,7 +83,7 @@ class Kdtree::LatitudeLongitudeTreeTest < Minitest::Test
 
   describe 'closest' do
     it 'should raise an exception if not called with a numeric for latitude' do
-      class_under_test = Kdtree::LatitudeLongitudeTree.new(create_test_points_even_nodes)
+      class_under_test = CacheableKdtree::LatitudeLongitudeTree.new(create_test_points_even_nodes)
 
       begin
         class_under_test.closest('bleh', 2.0, 3.0)
@@ -94,7 +94,7 @@ class Kdtree::LatitudeLongitudeTreeTest < Minitest::Test
     end
 
     it 'should raise an exception if not called with a numeric for longitude' do
-      class_under_test = Kdtree::LatitudeLongitudeTree.new(create_test_points_even_nodes)
+      class_under_test = CacheableKdtree::LatitudeLongitudeTree.new(create_test_points_even_nodes)
 
       begin
         class_under_test.closest(1.0, 'bleh', 3.0)
@@ -105,7 +105,7 @@ class Kdtree::LatitudeLongitudeTreeTest < Minitest::Test
     end
 
     it 'should raise an exception if not called with a numeric for distances' do
-      class_under_test = Kdtree::LatitudeLongitudeTree.new(create_test_points_even_nodes)
+      class_under_test = CacheableKdtree::LatitudeLongitudeTree.new(create_test_points_even_nodes)
 
       begin
         class_under_test.closest(1.0, 2.0, 'bleh')
@@ -116,7 +116,7 @@ class Kdtree::LatitudeLongitudeTreeTest < Minitest::Test
     end
 
     it 'should raise an exception if not called with kilometers or miles' do
-      class_under_test = Kdtree::LatitudeLongitudeTree.new(create_test_points_even_nodes)
+      class_under_test = CacheableKdtree::LatitudeLongitudeTree.new(create_test_points_even_nodes)
 
       begin
         class_under_test.closest(1, 2, 3, :incorrect)
@@ -127,9 +127,9 @@ class Kdtree::LatitudeLongitudeTreeTest < Minitest::Test
     end
 
     it 'should find the nodes within the bounding box' do
-      region = Kdtree::LatitudeLongitudeRegion.new(0, 0, 5, 5)
-      Kdtree::Util.expects(:bounding_box_miles).with(3.14, 42, 5).returns region
-      class_under_test = Kdtree::LatitudeLongitudeTree.new(create_test_points_odd_nodes)
+      region = CacheableKdtree::LatitudeLongitudeRegion.new(0, 0, 5, 5)
+      CacheableKdtree::Util.expects(:bounding_box_miles).with(3.14, 42, 5).returns region
+      class_under_test = CacheableKdtree::LatitudeLongitudeTree.new(create_test_points_odd_nodes)
 
       result = class_under_test.closest(3.14, 42, 5)
 
@@ -139,9 +139,9 @@ class Kdtree::LatitudeLongitudeTreeTest < Minitest::Test
     end
 
     it 'should find the nodes within the bounding box using kilometers' do
-      region = Kdtree::LatitudeLongitudeRegion.new(4, 8, 9, 6)
-      Kdtree::Util.expects(:bounding_box_kilometers).with(3.14, 42, 5).returns region
-      class_under_test = Kdtree::LatitudeLongitudeTree.new(create_test_points_even_nodes)
+      region = CacheableKdtree::LatitudeLongitudeRegion.new(4, 8, 9, 6)
+      CacheableKdtree::Util.expects(:bounding_box_kilometers).with(3.14, 42, 5).returns region
+      class_under_test = CacheableKdtree::LatitudeLongitudeTree.new(create_test_points_even_nodes)
 
       result = class_under_test.closest(3.14, 42, 5, :kilometers)
 
@@ -150,9 +150,9 @@ class Kdtree::LatitudeLongitudeTreeTest < Minitest::Test
     end
 
     it 'should find no nodes if the bounding box is outside the available nodes' do
-      region = Kdtree::LatitudeLongitudeRegion.new(-1, -1, -5, -5)
-      Kdtree::Util.expects(:bounding_box_miles).with(3.14, 42, 5).returns region
-      class_under_test = Kdtree::LatitudeLongitudeTree.new(create_test_points_odd_nodes)
+      region = CacheableKdtree::LatitudeLongitudeRegion.new(-1, -1, -5, -5)
+      CacheableKdtree::Util.expects(:bounding_box_miles).with(3.14, 42, 5).returns region
+      class_under_test = CacheableKdtree::LatitudeLongitudeTree.new(create_test_points_odd_nodes)
 
       result = class_under_test.closest(3.14, 42, 5)
 

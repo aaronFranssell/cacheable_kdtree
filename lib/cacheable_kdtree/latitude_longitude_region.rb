@@ -1,4 +1,4 @@
-class Kdtree::LatitudeLongitudeRegion
+class CacheableKdtree::LatitudeLongitudeRegion
   attr_accessor :max_latitude, :max_longitude, :min_latitude, :min_longitude
   def initialize(lat1, long1, lat2, long2)
     @min_latitude, @max_latitude = [lat1, lat2].minmax

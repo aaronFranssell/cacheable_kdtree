@@ -1,16 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'kdtree/version'
+require 'cacheable_kdtree/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'cacheable_kdtree'
-  spec.version       = Kdtree::VERSION
+  spec.version       = CacheableKdtree::VERSION
   spec.authors       = ['Aaron Franssell']
   spec.email         = ['aaron.franssell@gmail.com']
 
   spec.summary       = 'My implementation of a 2d k-d tree'
-  spec.homepage      = 'https://github.com/aaronFranssell/kdtree'
+  spec.homepage      = 'https://github.com/aaronFranssell/cacheable_kdtree'
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(/^(test|spec|features)/) }
   spec.bindir        = 'exe'
