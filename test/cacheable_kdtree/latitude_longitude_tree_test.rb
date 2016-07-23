@@ -133,9 +133,9 @@ class CacheableKdtree::LatitudeLongitudeTreeTest < Minitest::Test
 
       result = class_under_test.closest(3.14, 42, 5)
 
-      assert result.any? { |data| data == 'A' }
-      assert result.any? { |data| data == 'C' }
-      assert result.any? { |data| data == 'G' }
+      assert result.any? { |node| node.data == 'A' }
+      assert result.any? { |node| node.data == 'C' }
+      assert result.any? { |node| node.data == 'G' }
     end
 
     it 'should find the nodes within the bounding box using kilometers' do
@@ -145,8 +145,8 @@ class CacheableKdtree::LatitudeLongitudeTreeTest < Minitest::Test
 
       result = class_under_test.closest(3.14, 42, 5, :kilometers)
 
-      assert result.any? { |data| data == 'D' }
-      assert result.any? { |data| data == 'E' }
+      assert result.any? { |node| node.data == 'D' }
+      assert result.any? { |node| node.data == 'E' }
     end
 
     it 'should find no nodes if the bounding box is outside the available nodes' do

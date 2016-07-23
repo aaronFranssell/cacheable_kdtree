@@ -21,7 +21,7 @@ class CacheableKdtree::LatitudeLongitudeTree
 
   def nearest_nodes(bounding_box, node = @root, result = [])
     return result if node.nil?
-    result << node.data if bounding_box.point_in_region?(node.latitude, node.longitude)
+    result << node if bounding_box.point_in_region?(node.latitude, node.longitude)
     nearest_nodes(bounding_box, node.left, result) if search_child?(node.left, bounding_box)
     nearest_nodes(bounding_box, node.right, result) if search_child?(node.right, bounding_box)
     result
