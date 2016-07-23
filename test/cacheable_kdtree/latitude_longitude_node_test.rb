@@ -49,4 +49,26 @@ class CacheableKdtree::LatitudeLongitudeNodeTest < Minitest::Test
       assert_equal 'region', result
     end
   end
+
+  describe 'sort_by_distance_between' do
+    before do
+      @node_list = []
+      @node_list << CacheableKdtree::LatitudeLongitudeNode.new('Beijing', 39.9375346, 115.837023)
+      @node_list << CacheableKdtree::LatitudeLongitudeNode.new('Juneau Alaska', 58.3795684, -135.2974705)
+      @node_list << CacheableKdtree::LatitudeLongitudeNode.new('White House', 38.8976094, -77.0389236)
+      @node_list << CacheableKdtree::LatitudeLongitudeNode.new('Staples Center', 34.0430175, -118.2694428)
+      @node_list << CacheableKdtree::LatitudeLongitudeNode.new('Boca Raton', 26.3728125, -80.1883567)
+      @node_list.shuffle!
+    end
+
+    it 'sorts the list by the distance between the latitude and longitude' do
+      lat = 38.8807927
+      long = -77.172196 # Arlington, VA
+      result = CacheableKdtree::LatitudeLongitudeNode.sort_by_distance_between(lat, long, @node_list)
+
+      ['White House', 'Boca Raton', 'Staples Center', 'Juneau Alaska', 'Beijing'].each_with_index do |expected_data, i|
+        assert_equal result[i].data, expected_data
+      end
+    end
+  end
 end
