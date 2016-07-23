@@ -32,6 +32,8 @@ You can query your tree and return the closest nodes:
 ```ruby
 # The 4th parameter may be :miles or :kilometers
 all_my_nodes = my_tree.closest(my_lat, my_long, distance, :kilometers)
+# You may then sort the nodes by their distance to a point
+sorted_nodes = CacheableKdtree::LatitudeLongitudeNode.sort_by_distance_between(my_lat, my_long, all_my_nodes)
 ```
 
 ## Contributing

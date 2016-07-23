@@ -11,6 +11,12 @@ class CacheableKdtree::LatitudeLongitudeNode
     "region: #{region ? region.to_s : region}"
   end
 
+  def self.sort_by_distance_between(lat, long, node_list)
+    node_list.sort_by do |node|
+      CacheableKdtree::Util.distance_miles(lat, long, node.latitude, node.longitude)
+    end
+  end
+
   def self.create_or_merge_regions(n1, n2)
     return CacheableKdtree::LatitudeLongitudeRegion.new(n1.latitude, n1.longitude, n2.latitude, n2.longitude) if n1.region.nil? && n2.region.nil?
     return n1.region.merge_point(n2.latitude, n2.longitude) if n1.region && n2.region.nil?
