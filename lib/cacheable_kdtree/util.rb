@@ -33,10 +33,10 @@ class CacheableKdtree::Util
 
   # I am using the law of cosines because it is faster than Haversine...
   def self.distance_law_of_cosines(p1_lat, p1_long, p2_lat, p2_long, sphere_radius)
-    p1_lat = degrees_to_radians(p1_lat)
-    p1_long = degrees_to_radians(p1_long)
-    p2_lat = degrees_to_radians(p2_lat)
-    p2_long = degrees_to_radians(p2_long)
+    p1_lat = degrees_to_radians(p1_lat.to_f)
+    p1_long = degrees_to_radians(p1_long.to_f)
+    p2_lat = degrees_to_radians(p2_lat.to_f)
+    p2_long = degrees_to_radians(p2_long.to_f)
     Math.acos(Math.sin(p1_lat) * Math.sin(p2_lat) +
               Math.cos(p1_lat) * Math.cos(p2_lat) * Math.cos(p2_long - p1_long)) * sphere_radius
   end

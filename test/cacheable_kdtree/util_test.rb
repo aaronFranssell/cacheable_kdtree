@@ -43,11 +43,11 @@ class CacheableKdtree::UtilTest < Minitest::Test
   end
 
   describe 'distance_kilometers' do
-    it 'should calculate the distance in kilometers' do
-      lat1 = 26.3728125
-      long1 = -80.1883567 # Boca Raton
-      lat2 = 58.3795684
-      long2 = -135.2974705 # Juneau Alaska
+    it 'should calculate the distance in kilometers even if the values passed are strings' do
+      lat1 = '26.3728125'
+      long1 = '-80.1883567' # Boca Raton
+      lat2 = '58.3795684'
+      long2 = '-135.2974705' # Juneau Alaska
 
       result = CacheableKdtree::Util.distance_kilometers(lat1, long1, lat2, long2)
 
